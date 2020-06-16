@@ -23,22 +23,40 @@ function connect() {
         setConnected(true);
         console.log('Connected: ' + frame);
         stompClient.subscribe('/topic/sdkCommandResult', function (devices) {
-            $("#devices").empty();
-            var jsonData = JSON.parse(devices.body).data;
-            console.log(jsonData);
-            var lists = parseJsonToArrayList(jsonData);
-            if (lists.length > 0) {
-                for (var i = 0; i < lists.length; i++) {
-                    showDevice(i, lists[i]);
+            var apiRequest = JSON.parse(devices.body).apiRequest;
+            if (apiRequest == 'LIST_DEVICE_ADD') {
+                loadData(devices);
+            } else if (apiRequest == 'REMOVE_DEVICE') {
+                var status = JSON.parse(devices.body).data.status;
+                if (!status) {
+                    stopLoading();
+                    setTimeout(showMessage('Error remove device'), 500);
+                } else {
+                    loadData(devices);
                 }
-            }
-            stopLoading();
-            if (lists.length == 0) {
-                $("#devices").append(trStart + '<td class="a-center" colspan="8">No resuft!' + tdEnd + trEnd);
             }
         });
         sendName();
     });
+}
+
+function showMessage(message) {
+    alert(message);
+}
+
+function loadData(data) {
+    $("#devices").empty();
+    var jsonData = JSON.parse(data.body).data.list_device;
+    var lists = parseJsonToArrayList(jsonData);
+    if (lists.length > 0) {
+        for (var i = 0; i < lists.length; i++) {
+            showDevice(i, lists[i]);
+        }
+    }
+    stopLoading();
+    if (lists.length == 0) {
+        $("#devices").append(trStart + '<td class="a-center" colspan="6">No resuft!' + tdEnd + trEnd);
+    }
 }
 
 function parseJsonToArrayList(data) {

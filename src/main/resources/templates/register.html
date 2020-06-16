@@ -24,33 +24,38 @@
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/js/loading.js"></script>
     <script src="/js/account.js"></script>
 </head>
 
 <body class="login">
 <div>
     <div class="login_wrapper">
-        <div id="register" class="animate form registration_form">
+        <div id="register">
             <section class="login_content">
-                <form id="registerForm" name="registerForm" method="POST">
+                <form id="registerForm" name="registerForm" method="POST" onSubmit="return sendRegister()">
                     <h1>Create Account</h1>
                     <div>
-                        <input type="text" class="form-control" placeholder="Username" required/>
+                        <input id="username" name="username" type="text" class="form-control" placeholder="Username" required/>
                     </div>
                     <div>
-                        <input type="text" class="form-control" placeholder="Name" required/>
+                        <input id="password" type="password" name="password" class="form-control" placeholder="Password" required/>
                     </div>
                     <div>
-                        <input type="password" class="form-control" placeholder="Password" required/>
+                        <input id="rePassword" name="rePassword" type="password" class="form-control" placeholder="Re-password" required/>
                     </div>
                     <div>
-                        <input type="text" class="form-control" placeholder="Address"/>
+                        <input id="name" name="name" type="text" class="form-control" placeholder="Name" required/>
+                    </div>
+                    <div>
+                        <input id="address" name="address" type="text" class="form-control" placeholder="Address"/>
                     </div>
 <!--                    <div>-->
 <!--                        <input type="file" id="myFile" name="filename" required>-->
 <!--                    </div>-->
                     <div>
-                        <button class="btn btn-info" type="button">Register</button>
+                        <button class="btn btn-info" type="submit">Register</button>
+                        <a href="/login" class="to_register"> Log in </a>
                     </div>
 
                     <div class="clearfix"></div>

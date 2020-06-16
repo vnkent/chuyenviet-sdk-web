@@ -34,30 +34,40 @@ function connect() {
         // }
         // urlparameter;
         stompClient.subscribe('/topic/sdkCommandResult', function (greeting) {
-            $("#greetings").empty();
-            if (typeof greeting === "boolean") {
+            var apiRequest = JSON.parse(greeting.body).apiRequest;
+            if (apiRequest == 'SEARCH_DEVICE') {
+                loadData(greeting);
+            } else if (apiRequest == 'ADD_DEVICE') {
+                var isSuccess = JSON.parse(greeting.body).data.status;
                 stopLoading();
-                if (greeting) {
+                if (isSuccess) {
                     window.location.href = 'connect_devices.html';
                 } else {
-                    alert('Error add device');
-                }
-            } else {
-                var jsonData = JSON.parse(greeting.body).data;
-                var lists = parseJsonToArrayList(jsonData);
-                if (lists.length > 0) {
-                    for (var i = 0; i < lists.length; i++) {
-                        showGreeting(i, lists[i]);
-                    }
-                }
-                stopLoading();
-                if (lists.length == 0) {
-                    $("#greetings").append(trStart + '<td class="a-center" colspan="8">No resuft!' + tdEnd + trEnd);
+                    setTimeout(showMessage('Error add device'), 500);
                 }
             }
         });
         sendName();
     });
+}
+
+function showMessage(message) {
+    alert(message);
+}
+
+function loadData(data) {
+    $("#greetings").empty();
+    var jsonData = JSON.parse(data.body).data.list_device;
+    var lists = parseJsonToArrayList(jsonData);
+    if (lists.length > 0) {
+        for (var i = 0; i < lists.length; i++) {
+            showGreeting(i, lists[i]);
+        }
+    }
+    stopLoading();
+    if (lists.length == 0) {
+        $("#greetings").append(trStart + '<td class="a-center" colspan="8">No resuft!' + tdEnd + trEnd);
+    }
 }
 
 function parseJsonToArrayList(data) {
