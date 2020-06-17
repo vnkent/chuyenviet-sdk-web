@@ -42,10 +42,10 @@ class SocketSdkController {
     fun sdkCommand(sdkCommand: SdkCommand):SdkCommand{
         return sdkCommand
     }
-    @MessageMapping("/sdkCommandResult")
-    @SendTo("/topic/sdkCommandResult")
+    @MessageMapping("/sdkCommandResult/{userID}")
+    @SendTo("/topic/sdkCommandResult/{userID}")
     @Throws(Exception::class)
-    fun sdkCommandResult(sdkResult: SdkResult):SdkResult{
+    fun sdkCommandResult(sdkResult: SdkResult, @DestinationVariable userID:String):SdkResult{
         return sdkResult
     }
 }

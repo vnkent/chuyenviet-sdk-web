@@ -1,9 +1,3 @@
-var stompClient = null;
-var trStart  = '<tr class="even pointer">';
-var trEnd  = "</tr>";
-var tdStart  = "<td>";
-var tdEnd  = "</td>";
-
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
@@ -22,7 +16,11 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/sdkCommandResult', function (devices) {
+
+        userID = getCookie("userID");
+        var urlResult = "/topic/sdkCommandResult/" + userID;
+
+        stompClient.subscribe(urlResult, function (devices) {
             var apiRequest = JSON.parse(devices.body).apiRequest;
             if (apiRequest == 'LIST_DEVICE_ADD') {
                 loadData(devices);
@@ -38,10 +36,6 @@ function connect() {
         });
         sendName();
     });
-}
-
-function showMessage(message) {
-    alert(message);
 }
 
 function loadData(data) {
@@ -76,14 +70,15 @@ function disconnect() {
 
 function sendName() {
     startLoading();
-    stompClient.send("/app/sdkCommand", {}, JSON.stringify({'apiRequest': 'LIST_DEVICE_ADD', 'dataInput' : {}}));
+    userID = getCookie("userID");
+    stompClient.send("/app/sdkCommand", {}, JSON.stringify({'apiRequest': 'LIST_DEVICE_ADD', 'dataInput' : {"userID": userID}}));
 }
 
 function removeDevice(deviceID, iPAddress) {
     console.log("Remove device");
     startLoading();
     stompClient.send("/app/sdkCommand", {}, JSON.stringify({'apiRequest': 'REMOVE_DEVICE', 'dataInput' :
-            {'deviceID' : deviceID, 'iPAddress' : iPAddress}}));
+            {'userID' : userID, 'deviceID' : deviceID, 'iPAddress' : iPAddress}}));
 }
 
 function showDevice(index, message) {
@@ -95,14 +90,6 @@ function showDevice(index, message) {
     var removeAction = '<a href="javascript:removeDevice(' + message.deviceID + ',\'' + message.iPAddr_ + '\');">Remove</a>';
     var actionTD = tdStart + removeAction + tdEnd;
     $("#devices").append(trStart + stt + deviceID + type + addressIP + status + actionTD + trEnd);
-}
-
-function startLoading() {
-    $("body").LoadingOverlay("show");
-}
-
-function stopLoading() {
-    $("body").LoadingOverlay("hide");
 }
 
 $(document).ready(function () {

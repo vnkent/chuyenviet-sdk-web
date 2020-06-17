@@ -1,6 +1,6 @@
 package vn.chuyenviet.sdk.web.demo.model
 
-class AccountLogin(username: String, password: String) {
+class AccountLogin {
     var username: String = ""
     var password: String = ""
 }

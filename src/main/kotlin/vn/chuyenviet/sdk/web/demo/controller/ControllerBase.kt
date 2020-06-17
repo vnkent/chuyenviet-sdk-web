@@ -41,4 +41,11 @@ abstract class ControllerBase() {
         model.addAttribute("contentPage","fragments/"+contentHtmlName);
         return viewName(containerPage);
     }
+
+    fun createDefault() {
+        this.footerJs.add("/webjars/sockjs-client/sockjs.min.js")
+        this.footerJs.add("/webjars/stomp-websocket/stomp.min.js")
+        this.footerJs.add("/js/loading.js")
+        this.footerJs.add("/js/base.js")
+    }
 }

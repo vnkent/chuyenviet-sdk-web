@@ -1,9 +1,3 @@
-var stompClient = null;
-var trStart  = '<tr class="even pointer">';
-var trEnd  = "</tr>";
-var tdStart  = "<td>";
-var tdEnd  = "</td>";
-
 function setConnected(connected) {
     $("#connect").prop("disabled", connected);
     $("#disconnect").prop("disabled", !connected);
@@ -28,12 +22,11 @@ function connect() {
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        // var urlparameter;
-        // if(window.location.href.indexOf("driverId") > -1){
-        //     urlparameter = getUrlVars()["driverId"];
-        // }
-        // urlparameter;
-        stompClient.subscribe('/topic/sdkCommandResult', function (greeting) {
+
+        userID = getCookie("userID");
+        var urlResult = "/topic/sdkCommandResult/" + userID;
+
+        stompClient.subscribe(urlResult, function (greeting) {
             var apiRequest = JSON.parse(greeting.body).apiRequest;
             if (apiRequest == 'SEARCH_DEVICE') {
                 loadData(greeting);
@@ -41,7 +34,7 @@ function connect() {
                 var isSuccess = JSON.parse(greeting.body).data.status;
                 stopLoading();
                 if (isSuccess) {
-                    window.location.href = 'connect_devices.html';
+                    window.location.href = '/connect_devices';
                 } else {
                     setTimeout(showMessage('Error add device'), 500);
                 }
@@ -49,10 +42,6 @@ function connect() {
         });
         sendName();
     });
-}
-
-function showMessage(message) {
-    alert(message);
 }
 
 function loadData(data) {
@@ -87,13 +76,13 @@ function disconnect() {
 
 function sendName() {
     startLoading();
-    stompClient.send("/app/sdkCommand", {}, JSON.stringify({'apiRequest': 'SEARCH_DEVICE', 'dataInput' : {}}));
+    stompClient.send("/app/sdkCommand", {}, JSON.stringify({'apiRequest': 'SEARCH_DEVICE', 'dataInput' : {"userID": userID}}));
 }
 
 function addDevice(deviceID, iPAddress, port) {
     console.log("add device");
     stompClient.send("/app/sdkCommand", {}, JSON.stringify({'apiRequest': 'ADD_DEVICE', 'dataInput' :
-            {'deviceID' : deviceID, 'iPAddress' : iPAddress, 'port' : port}}));
+            {'userID' : userID, 'deviceID' : deviceID, 'iPAddress' : iPAddress, 'port' : port}}));
 }
 
 function showGreeting(index, message) {
@@ -109,24 +98,14 @@ function showGreeting(index, message) {
     $("#greetings").append(trStart + stt + deviceId + type + useDHCP + connectionMode + iPAddr + port + actionTd + trEnd);
 }
 
-$(function () {
+$(document).ready(function () {
+
     $("form").on('submit', function (e) {
         e.preventDefault();
     });
     $( "#connect" ).click(function() { connect(); });
     $( "#disconnect" ).click(function() { disconnect(); });
     $( "#send" ).click(function() { sendName(); });
-});
 
-function startLoading() {
-    $("body").LoadingOverlay("show");
-}
-
-function stopLoading() {
-    $("body").LoadingOverlay("hide");
-}
-
-$(document).ready(function () {
     connect();
-}
-)
+});

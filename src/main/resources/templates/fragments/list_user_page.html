@@ -1,0 +1,32 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div class="row">
+    <div class="col-md-12 col-sm-12  ">
+        <div class="x_panel">
+            <div class="col-md-12 table-responsive">
+                <table id="table_users" class="table table-striped jambo_table bulk_action">
+                    <thead>
+                    <tr class="headings">
+                        <th class="column-title">STT</th>
+                        <th class="column-title">Username</th>
+                        <th class="column-title">Name</th>
+                        <th class="column-title">Address</th>
+                        <th class="column-title">Acction</th>
+                    </tr>
+                    </thead>
+                    <tbody id="users">
+                        <tr th:each="user,iter: ${users}">
+                            <td th:text="${iter.index}" />
+                            <td th:text="${user.username}" />
+                            <td th:text="${user.name}" />
+                            <td th:text="${user.address}" />
+                            <td>
+                                <a th:href="@{'/user/' + ${user.id}}">Edit</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
