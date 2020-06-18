@@ -55,7 +55,7 @@ class UserController:ControllerBase() {
     @RequestMapping(value = ["/check_event/{deviceID}"])
     fun edit(model:Model, @PathVariable("deviceID") deviceID: String):String{
         model.addAttribute("deviceID", deviceID)
-        return "check.html"
+        return "/check.html"
     }
 
 //    @RequestMapping(value = ["/check/{deviceID}"], method = [RequestMethod.POST])
