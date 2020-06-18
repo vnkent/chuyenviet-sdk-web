@@ -65,7 +65,6 @@ class AccountServiceImpl {
         val lists = ArrayList<AccountDTO>()
         if (results != null) {
             for (item in results){
-                println(item)
                 lists.add(convertToAccount(item as Array<Any>))
             }
         }

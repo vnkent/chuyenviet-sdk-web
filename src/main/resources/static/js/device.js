@@ -9,13 +9,7 @@ function setConnected(connected) {
     }
     $("#greetings").html("");
 }
-function getUrlVars() {
-    var vars = {};
-    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
-        vars[key] = value;
-    });
-    return vars;
-}
+
 function connect() {
     var socket = new SockJS('/gs-guide-websocket');
     stompClient = Stomp.over(socket);
@@ -57,21 +51,6 @@ function loadData(data) {
     if (lists.length == 0) {
         $("#greetings").append(trStart + '<td class="a-center" colspan="8">No resuft!' + tdEnd + trEnd);
     }
-}
-
-function parseJsonToArrayList(data) {
-    var result = [];
-    for(var i in data)
-        result.push(data[i]);
-    return result;
-}
-
-function disconnect() {
-    if (stompClient !== null) {
-        stompClient.disconnect();
-    }
-    setConnected(false);
-    console.log("Disconnected");
 }
 
 function sendName() {

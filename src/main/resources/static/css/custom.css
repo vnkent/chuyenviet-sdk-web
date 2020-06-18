@@ -1,0 +1,41 @@
+.btnSpecial {
+    min-width: 112px;
+    height: 44px;
+    padding: 0 15px;
+    border: 1px solid #b4b4b4;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 0 0 1px rgba(255,255,255,.8), 0 1px 2px 0 rgba(0,0,0,.15);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.8), 0 1px 2px 0 rgba(0,0,0,.15);
+    background: -moz-linear-gradient(top,#fbfbfb 0,#ebebeb 100%);
+    background: -webkit-gradient(linear,left top,left bottom,color-stop(0,#fbfbfb),color-stop(100%,#ebebeb));
+    background: -webkit-linear-gradient(top,#fbfbfb 0,#ebebeb 100%);
+    background: -o-linear-gradient(top,#fbfbfb 0,#ebebeb 100%);
+    background: -ms-linear-gradient(top,#fbfbfb 0,#ebebeb 100%);
+    background: linear-gradient(to bottom,#fbfbfb 0,#ebebeb 100%);
+    -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fbfbfb', endColorstr='#ebebeb');
+}
+.iconFinger-special {
+    display: inline-block;
+    height: 25px;
+    margin-top: 2px;
+    padding: 6px 33px 0 0;
+    background-image: url(/images/fingerprint.png);
+    background-repeat: no-repeat;
+    background-position: right 0;
+}
+
+.iconFace-special {
+    height: 22px;
+    padding: 6px 33px 0 0;
+    background-image: url(/images/faceprint.png);
+    background-position: right 0;
+}
+
+.iconCard-special {
+    display: inline-block;
+    height: 17px;
+    padding: 3px 36px 0 0;
+    background-image: url(/images/cardprint.png);
+    background-repeat: no-repeat;
+    background-position: right 0;
+}

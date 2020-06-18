@@ -53,21 +53,6 @@ function loadData(data) {
     }
 }
 
-function parseJsonToArrayList(data) {
-    var result = [];
-    for(var i in data)
-        result.push(data[i]);
-    return result;
-}
-
-function disconnect() {
-    if (stompClient !== null) {
-        stompClient.disconnect();
-    }
-    setConnected(false);
-    console.log("Disconnected");
-}
-
 function sendName() {
     startLoading();
     userID = getCookie("userID");

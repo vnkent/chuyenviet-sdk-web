@@ -74,5 +74,11 @@ function removeUser() {
 
 function logout() {
     removeUser();
-    // window.location.href = "/logout";
+}
+
+function parseJsonToArrayList(data) {
+    var result = [];
+    for(var i in data)
+        result.push(data[i]);
+    return result;
 }

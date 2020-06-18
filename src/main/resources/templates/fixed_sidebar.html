@@ -10,16 +10,17 @@
     <title>Suprema</title>
 
     <!-- Bootstrap -->
-    <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
-    <link href="../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/../vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <!-- NProgress -->
-    <link href="../vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="/../vendors/nprogress/nprogress.css" rel="stylesheet">
     <!-- jQuery custom content scroller -->
-    <link href="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
+    <link href="/../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css" rel="stylesheet"/>
 
     <!-- Custom Theme Style -->
-    <link href="../build/css/custom.min.css" rel="stylesheet">
+    <link href="/../build/css/custom.min.css" rel="stylesheet">
+    <link href="/../css/custom.css" rel="stylesheet">
     <link th:each="cssItem:${listCss}" rel="stylesheet" type="text/css" th:href="${listCss}"/>
     <script type="text/javascript" th:each="jsItem:${headerJs}" th:src="${jsItem}"></script>
   </head>
@@ -65,16 +66,17 @@
                     <ul class="nav child_menu">
                       <li><a href="/search_device">SEARCH DEVICE</a></li>
                       <li><a href="/connect_device">CONNECT DEVICES</a></li>
-                      <li><a href="event_device.html">Event Real time</a></li>
+<!--                      <li><a href="/event_device">EVENT REAL TIME</a></li>-->
+                      <li><a href="/event">EVENT REAL TIME</a></li>
 <!--                      <li><a href="form_validation.html">Form Validation</a></li>-->
 <!--                      <li><a href="form_wizards.html">Form Wizard</a></li>-->
 <!--                      <li><a href="form_upload.html">Form Upload</a></li>-->
 <!--                      <li><a href="form_buttons.html">Form Buttons</a></li>-->
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-group"></i> User <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-group"></i>USER<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/users">User list</a></li>
+                      <li><a href="/users">USER LIST</a></li>
                     </ul>
                   </li>
 
@@ -265,18 +267,18 @@
     </div>
 
     <!-- jQuery -->
-    <script src="../vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/../vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
-   <script src="../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+   <script src="/../vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FastClick -->
-    <script src="../vendors/fastclick/lib/fastclick.js"></script>
+    <script src="/../vendors/fastclick/lib/fastclick.js"></script>
     <!-- NProgress -->
-    <script src="../vendors/nprogress/nprogress.js"></script>
+    <script src="/../vendors/nprogress/nprogress.js"></script>
     <!-- jQuery custom content scroller -->
-    <script src="../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="/../vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <!-- Custom Theme Scripts -->
-    <script src="../build/js/custom.min.js"></script>
+    <script src="/../build/js/custom.min.js"></script>
     <!-- Custom Theme Scripts Footer -->
     <script type="text/javascript" th:each="jsItem:${footerJs}" th:src="${jsItem}"></script>
   </body>
