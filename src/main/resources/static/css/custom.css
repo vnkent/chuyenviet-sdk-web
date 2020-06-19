@@ -1,7 +1,5 @@
 .btnSpecial {
-    min-width: 112px;
     height: 44px;
-    padding: 0 15px;
     border: 1px solid #b4b4b4;
     border-radius: 4px;
     -webkit-box-shadow: inset 0 0 0 1px rgba(255,255,255,.8), 0 1px 2px 0 rgba(0,0,0,.15);
@@ -15,10 +13,10 @@
     -ms-filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fbfbfb', endColorstr='#ebebeb');
 }
 .iconFinger-special {
-    display: inline-block;
+    /*display: inline-block;*/
     height: 25px;
     margin-top: 2px;
-    padding: 6px 33px 0 0;
+    padding: 8px 33px 10px 0;
     background-image: url(/images/fingerprint.png);
     background-repeat: no-repeat;
     background-position: right 0;
@@ -26,16 +24,31 @@
 
 .iconFace-special {
     height: 22px;
-    padding: 6px 33px 0 0;
+    padding: 8px 33px 10px 0;
     background-image: url(/images/faceprint.png);
     background-position: right 0;
 }
 
 .iconCard-special {
-    display: inline-block;
+    /*display: inline-block;*/
     height: 17px;
-    padding: 3px 36px 0 0;
+    padding: 8px 33px 10px 0;
     background-image: url(/images/cardprint.png);
     background-repeat: no-repeat;
     background-position: right 0;
+}
+
+.message-error {
+    text-align: center;
+    color: red;
+}
+
+.login-content-custom {
+    padding: 0 0 0 !important;
+}
+.login-form-custom {
+    padding: 4cm 0 0 !important;
+}
+.register-form-custom {
+    padding: 2cm 0 0 !important;
 }

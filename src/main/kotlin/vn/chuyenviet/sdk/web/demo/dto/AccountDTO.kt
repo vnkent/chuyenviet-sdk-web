@@ -1,4 +1,4 @@
-package vn.chuyenviet.sdk.web.demo.model
+package vn.chuyenviet.sdk.web.demo.dto
 
 import javax.persistence.*
 

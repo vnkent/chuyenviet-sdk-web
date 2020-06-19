@@ -1,4 +1,16 @@
 'use strict';
+
+let ajaxDataType = "json";
+let urlServer = window.location.origin + "/";
+
+let methodPOST = "POST";
+let methodGET = "POST";
+
+let headerAPI = {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+};
+
 var stompClient = null;
 var userID;
 var trStart  = '<tr class="even pointer">';
@@ -22,16 +34,21 @@ function getUrlVars() {
     return vars;
 }
 
-function showMessage(message) {
-    alert(message);
-}
-
 function startLoading() {
     $("body").LoadingOverlay("show");
+    return true;
 }
 
 function stopLoading() {
     $("body").LoadingOverlay("hide");
+    return true;
+}
+
+function parseJsonToArrayList(data) {
+    var result = [];
+    for(var i in data)
+        result.push(data[i]);
+    return result;
 }
 
 /* Cookie Set - name, value, period */
@@ -73,12 +90,51 @@ function removeUser() {
 }
 
 function logout() {
-    removeUser();
+    var dataAPI;
+    gfnAPICall("public/logout", methodPOST, headerAPI, dataAPI, callbackFunctionLogout);
 }
 
-function parseJsonToArrayList(data) {
-    var result = [];
-    for(var i in data)
-        result.push(data[i]);
-    return result;
+function callbackFunctionLogout(response) {
+    removeUser();
+    window.location.href = "/";
+}
+
+function gfnAPICall(apiDetailUrl, method, header, data, callbackFunction) {
+    if (data) {
+        $.ajax({
+            url     : urlServer + apiDetailUrl,
+            method  : method,
+            headers : header,
+            dataType: ajaxDataType,
+            data    : data,
+            success : function (response) {
+                callbackFunction(response);
+            },
+            error   : function (jqXHR, textStatus, errorThrown) {
+                alert("error." + textStatus + ', ' + errorThrown);
+            }
+        });
+    } else {
+        $.ajax({
+            url     : urlServer + apiDetailUrl,
+            method  : method,
+            headers : header,
+            dataType: ajaxDataType,
+            success : function (response) {
+                callbackFunction(response);
+            },
+            error   : function (jqXHR, textStatus, errorThrown) {
+                alert("error." + textStatus + ', ' + errorThrown);
+            }
+        });
+    }
+}
+
+function showCommonMessegeWindow(msgBody, msgTitle, msgType, msgLanguage, showTime) {
+    if ( msgType == "confirm" ) {
+        return confirm(msgBody);
+    } else {
+        alert (msgBody);
+        return "Y";
+    }
 }

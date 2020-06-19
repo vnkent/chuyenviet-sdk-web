@@ -25,23 +25,42 @@
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
     <script src="/js/loading.js"></script>
+    <script src="/js/base.js"></script>
+    <script src="/js/check.js"></script>
 </head>
 <body class="login">
-<div>
-    <div class="login_wrapper">
-        <div class="animate form login_form">
-            <section class="login_content">
-                <form id="checkForm" name="checkForm" method="POST">
-                    <input id="selectUserID" type="hidden"/>
-                    <h2 th:class="${class}" th:text="${message}"></h2>
-                </form>
-            </section>
+<div class="row">
+    <div class="col-md-6">
+        <form class="form-inline">
+            <div class="form-group">
+                <label for="connect">WebSocket connection:</label>
+                <button id="connect" class="btn btn-default" type="submit">Connect</button>
+                <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-12 col-sm-12  ">
+        <div class="col-md-12 table-responsive">
+            <table id="table_users" class="table table-striped jambo_table bulk_action">
+                <thead>
+                <tr class="headings">
+                    <th class="column-title">ID</th>
+                    <th class="column-title">Username</th>
+                    <th class="column-title">Name</th>
+                    <th class="column-title">Address</th>
+                    <th class="column-title">Image</th>
+                </tr>
+                </thead>
+                <tbody id="showUser">
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 </body>
 <script th:inline="javascript">
-    var deviceID = [[${deviceID}]];
-    console.log("deviceID_" + deviceID);
+    deviceID = [[${deviceID}]];
+    //setCookie("deviceID", deviceID, true);
 </script>
 </html>

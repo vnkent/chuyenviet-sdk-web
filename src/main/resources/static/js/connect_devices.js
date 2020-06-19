@@ -28,7 +28,7 @@ function connect() {
                 var status = JSON.parse(devices.body).data.status;
                 if (!status) {
                     stopLoading();
-                    setTimeout(showMessage('Error remove device'), 500);
+                    setTimeout(showCommonMessegeWindow('Error remove device'), 500);
                 } else {
                     loadData(devices);
                 }
@@ -48,14 +48,13 @@ function loadData(data) {
         }
     }
     stopLoading();
-    if (lists.length == 0) {
+    if (lists.length === 0) {
         $("#devices").append(trStart + '<td class="a-center" colspan="6">No resuft!' + tdEnd + trEnd);
     }
 }
 
 function sendName() {
     startLoading();
-    userID = getCookie("userID");
     stompClient.send("/app/sdkCommand", {}, JSON.stringify({'apiRequest': 'LIST_DEVICE_ADD', 'dataInput' : {"userID": userID}}));
 }
 

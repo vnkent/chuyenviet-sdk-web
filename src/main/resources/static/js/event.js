@@ -2,14 +2,14 @@ function connect() {
     var socket = new SockJS('/gs-guide-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        console.log('Connected: ' + frame);
+        console.log("Connected: " + frame);
 
         userID = getCookie("userID");
         var urlResult = "/topic/sdkCommandResult/" + userID;
 
         stompClient.subscribe(urlResult, function (greeting) {
             var apiRequest = JSON.parse(greeting.body).apiRequest;
-            if (apiRequest == 'LIST_DEVICE_ADD') {
+            if (apiRequest === "LIST_DEVICE_ADD") {
                 loadData(greeting);
             }
         });
@@ -34,9 +34,12 @@ function sendName() {
     stompClient.send("/app/sdkCommand", {}, JSON.stringify({'apiRequest': 'LIST_DEVICE_ADD', 'dataInput' : {"userID": userID}}));
 }
 
-function addEvent(e) {
-    var deviceID = $( "#deviceID" ).val();
-    window.location.href = "/event_device/" + deviceID;
+function addEvent() {
+    var deviceID = $("#deviceID").val();
+    if (deviceID !== null && deviceID !== "" && deviceID !== "null") {
+        var urlPage = urlServer + "check_event/" + deviceID;
+        window.open(urlPage, "_blank");
+    }
 }
 
 function showDevice(index, item) {

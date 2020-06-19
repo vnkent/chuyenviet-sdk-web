@@ -1,38 +1,20 @@
-
-function setConnected(connected) {
-    $("#connect").prop("disabled", connected);
-    $("#disconnect").prop("disabled", !connected);
-    if (connected) {
-        $("#conversation").show();
-    }
-    else {
-        $("#conversation").hide();
-    }
-    $("#greetings").html("");
-}
-
 function connect() {
     var socket = new SockJS('/gs-guide-websocket');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
-        setConnected(true);
-        console.log('Connected: ' + frame);
+
+        console.log("Connected: " + frame);
 
         userID = getCookie("userID");
         var urlResult = "/topic/sdkCommandResult/" + userID;
 
         stompClient.subscribe(urlResult, function (greeting) {
             var apiRequest = JSON.parse(greeting.body).apiRequest;
-            if (apiRequest == 'LIST_DEVICE_ADD') {
+            if (apiRequest === "LIST_DEVICE_ADD") {
                 loadData(greeting);
-            } else if (apiRequest == 'ADD_FINGER') {
-                // var isSuccess = JSON.parse(greeting.body).data.status;
+            } else if (apiRequest === "ADD_FINGER" || apiRequest === "ADD_FACE" || apiRequest === "ADD_CARD") {
                 stopLoading();
-                // if (isSuccess) {
-                //     window.location.href = '/connect_devices';
-                // } else {
-                //     setTimeout(showMessage('Error add device'), 500);
-                // }
+                setTimeout(showMessage("Success"), 500);
             }
         });
         sendName();
@@ -59,13 +41,13 @@ function sendName() {
 function addEvent(e) {
     startLoading();
     var deviceID = $( "#devices" ).val();
-    var selectUserId = e.getAttribute('userID');
-    var type = e.getAttribute('type');
+    var selectUserId = e.getAttribute("userID");
+    var type = e.getAttribute("type");
     var apiRequest = "ADD_CARD";
-    if (type == 1) {
+    if (type === 1) {
         console.log("add finger");
         apiRequest = "ADD_FINGER";
-    } else if (type == 2) {
+    } else if (type === 2) {
         console.log("add face");
         apiRequest = "ADD_FACE";
     }

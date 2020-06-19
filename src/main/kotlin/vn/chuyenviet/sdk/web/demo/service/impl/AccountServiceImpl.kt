@@ -1,6 +1,5 @@
 package vn.chuyenviet.sdk.web.demo.service.impl
 
-import com.google.gson.Gson
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.jpa.repository.Modifying
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -8,8 +7,8 @@ import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import vn.chuyenviet.sdk.web.demo.base.HandlingSQL
 import vn.chuyenviet.sdk.web.demo.model.Account
-import vn.chuyenviet.sdk.web.demo.model.AccountDTO
-import vn.chuyenviet.sdk.web.demo.model.AccountLogin
+import vn.chuyenviet.sdk.web.demo.dto.AccountDTO
+import vn.chuyenviet.sdk.web.demo.dto.AccountLogin
 import vn.chuyenviet.sdk.web.demo.utils.ApplicationMessage
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
@@ -90,13 +89,10 @@ class AccountServiceImpl {
         return account
     }
 
-    @Throws(Exception::class)
-    fun login(dto: AccountLogin): AccountDTO {
-        val account = findByUsername(dto.username)
-        if (account == null) {
-            throw Exception(ApplicationMessage.USERNAME_PASSWORD_INCORRECT)
-        } else if (!passwordEncoder!!.matches(dto.password, account.password)) {
-            throw Exception(ApplicationMessage.USERNAME_PASSWORD_INCORRECT)
+    fun login(dto: AccountLogin): AccountDTO? {
+        var account = findByUsername(dto.username)
+        if (account != null && !passwordEncoder!!.matches(dto.password, account.password)) {
+            account = null
         }
         return account
     }

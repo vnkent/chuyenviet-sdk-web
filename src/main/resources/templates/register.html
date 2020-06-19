@@ -21,6 +21,8 @@
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
 
+    <link href="/css/custom.css" rel="stylesheet">
+
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
@@ -31,50 +33,35 @@
 <body class="login">
 <div>
     <div class="login_wrapper">
-        <div id="register">
-            <section class="login_content">
-                <form th:object="${account}" id="registerForm" name="registerForm" method="POST" onSubmit="return sendRegister()">
-                    <h1>Create Account</h1>
-                    <div>
-                        <input id="username" name="username" type="text" class="form-control" placeholder="Username" required/>
-                    </div>
-                    <div>
-                        <input id="password" type="password" name="password" class="form-control" placeholder="Password" required/>
-                    </div>
-                    <div>
-                        <input id="rePassword" name="rePassword" type="password" class="form-control" placeholder="Re-password" required/>
-                    </div>
-                    <div>
-                        <input id="name" name="name" type="text" class="form-control" placeholder="Name" required/>
-                    </div>
-                    <div>
-                        <input id="address" name="address" type="text" class="form-control" placeholder="Address"/>
-                    </div>
-<!--                    <div>-->
-<!--                        <input type="file" id="myFile" name="filename" required>-->
-<!--                    </div>-->
-                    <div>
-                        <button class="btn btn-info" type="submit">Register</button>
-                        <a href="/login" class="to_register"> Log in </a>
-                    </div>
-
-                    <div class="clearfix"></div>
-
-<!--                    <div class="separator">-->
-<!--                        <p class="change_link">Already a member ?-->
-<!--                            <a href="#signin" class="to_register"> Log in </a>-->
-<!--                        </p>-->
-
-<!--                        <div class="clearfix"></div>-->
-<!--                        <br/>-->
-
-<!--                        <div>-->
-<!--                            <h1><i class="fa fa-paw"></i> Gentelella Alela!</h1>-->
-<!--                            <p>©2016 All Rights Reserved. Gentelella Alela! is a Bootstrap 3 template. Privacy and-->
-<!--                                Terms</p>-->
-<!--                        </div>-->
-<!--                    </div>-->
-                </form>
+        <div class="animate form login_form register-form-custom">
+            <section class="login_content, login-content-custom">
+                <h1>Register Account</h1>
+                <div class="form-group">
+                    <input id="username" name="username" type="text" class="form-control" placeholder="Username"
+                           required/>
+                </div>
+                <div class="form-group">
+                    <input id="password" type="password" name="password" class="form-control" placeholder="Password"
+                           required/>
+                </div>
+                <div class="form-group">
+                    <input id="rePassword" name="rePassword" type="password" class="form-control"
+                           placeholder="Re-password" required/>
+                </div>
+                <div class="form-group">
+                    <input id="name" name="name" type="text" class="form-control" placeholder="Name" required/>
+                </div>
+                <div class="form-group">
+                    <input id="address" name="address" type="text" class="form-control" placeholder="Address"/>
+                </div>
+                <!--                    <div>-->
+                <!--                        <input type="file" id="myFile" name="filename" required>-->
+                <!--                    </div>-->
+                <div class="form-group" style="text-align: center">
+                    <button class="btn btn-info" onclick="sendRegister()">Register</button>
+                    <a href="/login" class="to_register"> Log in </a>
+                </div>
+                <div class="message-error" id="message">Could not register account</div>
             </section>
         </div>
     </div>

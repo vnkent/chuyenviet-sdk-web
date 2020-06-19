@@ -18,7 +18,7 @@ class DeviceController:ControllerBase() {
         this.footerJs.add("/js/event_device.js")
         return contentPage("search_device_page",model)
     }
-    @RequestMapping(value = ["/connect_devices.html", "/connect_device"])
+    @RequestMapping(value = ["/connect_devices.html", "/connect_devices"])
     fun connectDevices(model:Model):String{
         createDefault()
         this.footerJs.add("/js/connect_devices.js")
